@@ -1,28 +1,34 @@
 <?php
-
-include "../models/RegistroModel.php";
-
+include_once '../models/ProfesorModel.php';
 class RegistroController
 {
-    private $autentificacion;
-
+    public $model;
     public function __construct()
     {
-        $this->autentificacion = new RegistroModel();
+        $this->model = new Profesor  ;
     }
-
-    public function Register()
-    {
-        $Nombre = $_POST['Nombre'];
-        $Apellidos = $_POST['Apellidos'];
-        $Fecha_nacimiento = $_POST['Fecha_nacimiento'];
-        $Titulo_grado = $_POST['Titulo_grado'];
-
-        if ($this->autentificacion->Registrar($Nombre,$Apellidos,$Fecha_nacimiento,$Titulo_grado)) {
-          
-            header("location:../index.php");
-        } else {
-            echo "No se pudo registrar";
+    public function index(){
+       include '../index.php';
+    }
+    public function new(){
+        $profesor = new Profesor();
+        if (!isset($_REQUEST['id'])) {
+           $profesor= $this->model->update($_REQUEST['id']);
         }
+        include_once '../views/save.php';
+    }
+    public function save(){
+        $profesor = new Profesor();
+        $profesor->Nombre = $_POST['Nombre'];
+        $profesor->Apellido = $_POST['Apellido'];
+        $profesor->Fecha_nacimiento = $_POST['Fecha_nacimiento'];
+        $profesor->Titulo_profesor = $_POST['Titulo_profesor'];
+
+        $this->model->insert($profesor);
+        header("Location: index.php");
+    }
+    public function delete( ){
+        $this->model->delete($_POST['id']);
+        header("Location: index.php");
     }
 }
