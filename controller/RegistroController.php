@@ -1,5 +1,5 @@
 <?php
-include_once '../models/ProfesorModel.php';
+include_once 'models/ProfesorModel.php';
 class RegistroController
 {
     public $model;

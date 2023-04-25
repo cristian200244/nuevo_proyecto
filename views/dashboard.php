@@ -1,3 +1,9 @@
+<?php
+require_once '../models/ProfesorModel.php';
+$data = new Profesor();
+$registros = $data->Show();
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -15,7 +21,7 @@
 
     <div class="container">
 
-        
+
         <h2 class="text-center">Lista de Profesores</h2><br>
         <td><button type="button" class="btn btn-outline-info"><a href="nuevo.php">Agregar</a></button>
             <table class="table">
@@ -31,20 +37,23 @@
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($this->model->show() as $teacher) : ?>
-                        <tr>
-                            <th><?php echo $teacher->Id_profesor; ?></th>
-                            <td><?php echo $teacher->Nombre; ?></td>
-                            <td><?php echo $teacher->Apellido; ?></td>
-                            <td><?php echo $teacher->Fecha_nacimiento; ?></td>
-                            <td><?php echo $teacher->Titulo_profesor; ?></td>
+                    if ($registros) {
 
-                            <td><button type="button" class="btn btn-outline-danger"><a href="?c=delete&id=<?php echo $teacher->Id_profesor; ?> ">Eliminar</a></button>
-                                <button type="button" class="btn btn-outline-warning"><a href="?c=nuevo&id=<?php echo $teacher->Id_profesor; ?> ">Actualizar</a></button>
-                            </td>
-                        </tr>
+                        foreach ($registros as $teacher) : ?>
+                            <tr>
+                                <th><?php echo $teacher->Id_profesor; ?></th>
+                                <td><?php echo $teacher->Nombre; ?></td>
+                                <td><?php echo $teacher->Apellido; ?></td>
+                                <td><?php echo $teacher->Fecha_nacimiento; ?></td>
+                                <td><?php echo $teacher->Titulo_profesor; ?></td>
+
+                                <td><button type="button" class="btn btn-outline-danger"><a href="?c=delete&id=<?php echo $teacher->Id_profesor; ?> ">Eliminar</a></button>
+                                    <button type="button" class="btn btn-outline-warning"><a href="?c=nuevo&id=<?php echo $teacher->Id_profesor; ?> ">Actualizar</a></button>
+                                </td>
+                            </tr>
                     <?php
-                    endforeach;
+                        endforeach;
+                    }
                     ?>
                 </tbody>
             </table>
